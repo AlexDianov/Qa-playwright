@@ -18,7 +18,6 @@ def invalid_user():
         "password": "wrong_password"
     }
 
-
 @pytest.fixture
 def login_page(page):
     return LoginPage(page)

@@ -22,7 +22,3 @@ class SmartdeskPage(start_page):
     def select_hotel_service(self):
         """Переход на страницу поиска"""
         self.hotel_search.click()
-
-
-
-

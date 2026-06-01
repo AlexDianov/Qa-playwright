@@ -59,4 +59,3 @@ def test_no_free_cancel_room(login_page, smartdesk_page, hotels_search_page, nam
     hotels_search_page.click_to_search_button()
     region_page.click_free_cancel()
     region_page.check_no_free_cancel_on_hotel()
-
