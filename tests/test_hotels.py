@@ -1,4 +1,3 @@
-from playwright.sync_api import expect
 from pages.login_page import LoginPage
 from pages.smartdesk_page import SmartdeskPage
 from pages.hotels_search_page import SearchPage
@@ -21,7 +20,6 @@ def test_search_button_enables(login_page, smartdesk_page, hotels_search_page, n
     login_page.navigate_to_login_page()
     login_page.login(valid_user["username"], valid_user["password"])
     smartdesk_page.select_hotel_service()
-    #hotels_search_page.check_search_button_disabled()
     hotels_search_page.search_region_name(name_region_search)
     hotels_search_page.check_search_button_enabled()
 
@@ -30,7 +28,6 @@ def test_sucsess_finished_search(login_page, smartdesk_page, hotels_search_page,
     login_page.navigate_to_login_page()
     login_page.login(valid_user["username"], valid_user["password"])
     smartdesk_page.select_hotel_service()
-    # hotels_search_page.check_search_button_disabled()
     hotels_search_page.search_region_name(name_region_search)
     hotels_search_page.check_search_button_enabled()
     hotels_search_page.click_to_search_button()
@@ -41,21 +38,31 @@ def test_free_cancel_room(login_page, smartdesk_page, hotels_search_page, name_r
     login_page.navigate_to_login_page()
     login_page.login(valid_user["username"], valid_user["password"])
     smartdesk_page.select_hotel_service()
-    # hotels_search_page.check_search_button_disabled()
     hotels_search_page.search_region_name(name_region_search)
     hotels_search_page.check_search_button_enabled()
     hotels_search_page.click_to_search_button()
     region_page.click_free_cancel()
     region_page.check_free_cancel_on_hotel()
 
-def test_no_free_cancel_room(login_page, smartdesk_page, hotels_search_page, name_region_search, region_page, valid_user):
+def test_corp_tarif_avaliable(login_page, smartdesk_page, hotels_search_page, name_region_search, region_page, valid_user):
     """Проверка отсутсвия на выдаче рейтов с бесплатной отменой"""
     login_page.navigate_to_login_page()
     login_page.login(valid_user["username"], valid_user["password"])
     smartdesk_page.select_hotel_service()
-    # hotels_search_page.check_search_button_disabled()
     hotels_search_page.search_region_name(name_region_search)
     hotels_search_page.check_search_button_enabled()
     hotels_search_page.click_to_search_button()
-    region_page.click_free_cancel()
-    region_page.check_no_free_cancel_on_hotel()
+    region_page.check_corp_tarif_avaliable()
+
+def test_add_hotel_in_cart(login_page, smartdesk_page, hotels_search_page, name_region_search, region_page, valid_user):
+    """Проверка возможности положить рейт в корзину"""
+    login_page.navigate_to_login_page()
+    login_page.login(valid_user["username"], valid_user["password"])
+    smartdesk_page.select_hotel_service()
+    hotels_search_page.search_region_name(name_region_search)
+    hotels_search_page.check_search_button_enabled()
+    hotels_search_page.click_to_search_button()
+    region_page.click_to_choose_room_button()
+    region_page.wait_room_wrapper()
+    region_page.wait_button()
+    region_page.click_hotel_current_room_cart()

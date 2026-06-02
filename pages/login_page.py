@@ -21,5 +21,8 @@ class LoginPage:
     def check_login_failed(self):
         expect(
             self.login_error,
-            "ошибка авторизации"
+            "Неверно введены данные для входа"
         ).to_be_visible(timeout=10000)
+        expect(
+            self.login_error
+        ).to_have_text("Неверно введены данные для входа")
