@@ -2,6 +2,7 @@ from playwright. sync_api import Page, expect
 from pages.start_page import start_page
 from pages.smartdesk_page import SmartdeskPage
 from pages.hotels_search_page import SearchPage
+from pages.cart_page import CartPage
 
 
 class RegionPage():
@@ -11,12 +12,9 @@ class RegionPage():
         self.free_cancel = page.get_by_text('Бесплатная отмена бронирования', exact=True)
         self.free_cancel_on_hotel = page.get_by_text('Бесплатная отмена до')
         self.corp_tarif = page.get_by_text('Корпоративный тариф')
-        self.choose_room_button = page.locator('[data-qa="hotel-result-choose-room"]')
-        self.hotel_current_room_cart = page.locator('[data-qa="hotel-current-room-cart"]')
-        self.room_wrapper = page.locator(('[data-qa="hotel-current-room-wrapper"]'))
-
-
-
+        self.choose_room_button = page.locator('[data-qa="hotel-result-choose-room"]').nth(1)
+        #self.hotel_current_room_cart = page.locator('[data-qa="hotel-current-room-cart"]').first
+        #self.cart = page.get_by_text('Корзина', exact=True).first
 
 
     def check_select_room_button(self):
@@ -44,22 +42,27 @@ class RegionPage():
             "Корпоративный тариф есть в выдаче"
         ).to_be_visible(timeout=10000)
 
-    def click_to_choose_room_button(self):
-        'Нажатие кнопки выбора номера'
-        self.choose_room_button.click()
 
-    def wait_room_wrapper(self):
-        expect(
-            self.room_wrapper,
-        'Ожидаем прогрузку рейтов'
-        ).to_be_visible(timeout=30000)
+    def open_hotel_in_new_tab(self):
+        with self.page.context.expect_page() as new_hotel_page:
+            self.choose_room_button.click()
 
-    def wait_button(self):
+        self.page = new_hotel_page.value
+        self.page.wait_for_load_state()
+
+    def wait_button_and_click(self):
+        'Ожидание и нажатие кнопки "В корзину"'
+        hotel_current_room_cart = self.page.locator('[data-qa="hotel-current-room-cart"]').first
+
         expect(
-            self.hotel_current_room_cart
+            hotel_current_room_cart,
+            "Кнопка 'В корзину' должна отображаться"
         ).to_be_visible(timeout=40000)
+        hotel_current_room_cart.click()
 
-    def click_hotel_current_room_cart(self):
-        'Нажатие кнопки добавления рейта в корзину'
-        self.hotel_current_room_cart.click()
+    def go_to_cart(self):
+        "Переход в корзину"
+        hotel_cart = self.page.get_by_text('Корзина', exact=True).first
+        hotel_cart.click()
+
 

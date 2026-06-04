@@ -2,6 +2,7 @@ from pages.login_page import LoginPage
 from pages.smartdesk_page import SmartdeskPage
 from pages.hotels_search_page import SearchPage
 from pages.region_page import RegionPage
+from pages.cart_page import CartPage
 
 def test_login_success(valid_user, login_page, smartdesk_page):
     """Проверка успешного логина"""
@@ -62,7 +63,19 @@ def test_add_hotel_in_cart(login_page, smartdesk_page, hotels_search_page, name_
     hotels_search_page.search_region_name(name_region_search)
     hotels_search_page.check_search_button_enabled()
     hotels_search_page.click_to_search_button()
-    region_page.click_to_choose_room_button()
-    region_page.wait_room_wrapper()
-    region_page.wait_button()
-    region_page.click_hotel_current_room_cart()
+    #region_page.click_to_choose_room_button()
+    region_page.open_hotel_in_new_tab()
+    region_page.wait_button_and_click()
+
+def test_hotel_in_cart(login_page, smartdesk_page, hotels_search_page, name_region_search, region_page, valid_user, cart_page):
+    """Проверка нахождения рейта в корзине после его добавления"""
+    login_page.navigate_to_login_page()
+    login_page.login(valid_user["username"], valid_user["password"])
+    smartdesk_page.select_hotel_service()
+    hotels_search_page.search_region_name(name_region_search)
+    hotels_search_page.check_search_button_enabled()
+    hotels_search_page.click_to_search_button()
+    region_page.open_hotel_in_new_tab()
+    region_page.wait_button_and_click()
+    region_page.go_to_cart()
+    cart_page.check_hotel_in_cart()

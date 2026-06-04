@@ -3,6 +3,7 @@ from pages.login_page import LoginPage
 from pages.smartdesk_page import SmartdeskPage
 from pages.hotels_search_page import SearchPage
 from pages.region_page import RegionPage
+from pages.cart_page import CartPage
 
 @pytest.fixture
 def valid_user():
@@ -33,6 +34,10 @@ def hotels_search_page(page):
 @pytest.fixture
 def region_page(page):
     return RegionPage(page)
+
+@pytest.fixture
+def cart_page(page):
+    return CartPage(page)
 
 @pytest.fixture
 def name_region_search():
