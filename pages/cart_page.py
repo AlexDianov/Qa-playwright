@@ -13,6 +13,6 @@ class CartPage():
         #cart_hotel_title = self.page.locator('[data-qa="cart-price-item"]')
 
         expect(
-            self.cart_price_item,
+            self.cart_price_item.first,
             'Проверка нахождения рейта в корзине'
         ).to_be_visible(timeout=10000)
