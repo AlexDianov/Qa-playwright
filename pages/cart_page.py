@@ -10,7 +10,6 @@ class CartPage():
 
 
     def check_hotel_in_cart(self):
-        #cart_hotel_title = self.page.locator('[data-qa="cart-price-item"]')
 
         expect(
             self.cart_price_item.first,

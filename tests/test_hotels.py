@@ -1,7 +1,3 @@
-from pages.login_page import LoginPage
-from pages.smartdesk_page import SmartdeskPage
-from pages.hotels_search_page import SearchPage
-from pages.region_page import RegionPage
 from pages.cart_page import CartPage
 
 def test_login_success(valid_user, login_page, smartdesk_page):

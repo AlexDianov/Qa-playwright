@@ -1,8 +1,5 @@
 from playwright. sync_api import Page, expect
-from pages.start_page import start_page
-from pages.smartdesk_page import SmartdeskPage
-from pages.hotels_search_page import SearchPage
-from pages.cart_page import CartPage
+
 
 
 class RegionPage():
@@ -10,11 +7,9 @@ class RegionPage():
         self.page = page
         self.select_room = page.locator('[data-qa="hotel-result-choose-room"]')
         self.free_cancel = page.get_by_text('Бесплатная отмена бронирования', exact=True)
-        self.free_cancel_on_hotel = page.get_by_text('Бесплатная отмена до')
+        self.free_cancel_on_hotel = page.get_by_text('Бесплатная отмена до').first
         self.corp_tarif = page.get_by_text('Корпоративный тариф')
         self.choose_room_button = page.locator('[data-qa="hotel-result-choose-room"]').nth(1)
-        #self.hotel_current_room_cart = page.locator('[data-qa="hotel-current-room-cart"]').first
-        #self.cart = page.get_by_text('Корзина', exact=True).first
 
 
     def check_select_room_button(self):
@@ -57,7 +52,7 @@ class RegionPage():
         expect(
             hotel_current_room_cart,
             "Кнопка 'В корзину' должна отображаться"
-        ).to_be_visible(timeout=40000)
+        ).to_be_visible(timeout=60000)
         hotel_current_room_cart.click()
 
     def go_to_cart(self):

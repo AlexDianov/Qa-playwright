@@ -1,6 +1,5 @@
 from playwright. sync_api import Page, expect
-from pages.start_page import start_page
-from pages.smartdesk_page import SmartdeskPage
+
 
 
 class SearchPage:
