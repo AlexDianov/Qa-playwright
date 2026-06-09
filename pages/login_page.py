@@ -1,5 +1,6 @@
 from playwright.sync_api import Page, expect
 
+
 class LoginPage:
     def __init__(self, page: Page):
         self.page = page
@@ -10,7 +11,7 @@ class LoginPage:
 
     def navigate_to_login_page(self):
         """Открывает страницу логина."""
-        self.page.goto('https://rc.gospodaprogrammisty.ru/')
+        self.page.goto("https://rc.gospodaprogrammisty.ru/")
 
     def login(self, username, password):
         """Выполняет вход с заданными учетными данными."""
@@ -19,10 +20,5 @@ class LoginPage:
         self.login_button.click()
 
     def check_login_failed(self):
-        expect(
-            self.login_error,
-            "Неверно введены данные для входа"
-        ).to_be_visible(timeout=10000)
-        expect(
-            self.login_error
-        ).to_have_text("Неверно введены данные для входа")
+        expect(self.login_error, "Неверно введены данные для входа").to_be_visible()
+        expect(self.login_error).to_have_text("Неверно введены данные для входа")

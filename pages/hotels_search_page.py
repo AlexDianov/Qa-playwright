@@ -1,11 +1,10 @@
-from playwright. sync_api import Page, expect
-
+from playwright.sync_api import Page, expect
 
 
 class SearchPage:
     def __init__(self, page: Page):
         self.page = page
-        self.hotel_title = page.get_by_placeholder('Город или гостиница')#locator('[data-qa="hotel-search-title"]')
+        self.hotel_title = page.get_by_placeholder("Город или гостиница")
         self.hotel_search = page.locator('[data-qa="hotel-search-suggest"]')
         self.search_check_in = page.locator('[data-qa="hotel-search-check-in"]')
         self.search_check_out = page.locator('[data-qa="hotel-search-check-out"]')
@@ -15,14 +14,12 @@ class SearchPage:
         self.search_button = page.locator('[data-qa="hotel-search-button"]')
         self.region_name = page.locator('[data-qa="hotel-search-suggest-result-0"]')
 
-    def search_region_name (self, region):
+    def search_region_name(self, region):
         """Поиск региона и проверка активности кнопки поиска"""
         self.hotel_search.click()
         self.hotel_search.fill(region)
         self.region_name.wait_for(state="visible")
         self.region_name.click()
-
-
 
     def check_search_button_enabled(self):
         expect(
